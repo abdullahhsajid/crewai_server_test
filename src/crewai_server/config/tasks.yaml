@@ -1,0 +1,53 @@
+research_task:
+  description: >
+    Conduct a comprehensive investigation into {topic}, focusing specifically on:
+    1. The latest breakthroughs and innovations since {current_year}
+    2. Major trends reshaping this field in {current_year}
+    3. Surprising statistics or data points that challenge conventional wisdom
+    4. Expert predictions for future developments
+    5. Practical applications or real-world impact stories
+    
+    Prioritize high-credibility sources and emerging research that hasn't yet reached mainstream awareness. Look beyond obvious information to uncover unique insights that would genuinely interest and surprise readers.
+    
+    Consider contrasting perspectives and identify any significant debates or controversies among experts in this domain during {current_year}.
+    
+    Ensure all findings are timely and relevant as of {current_year}, with particular emphasis on developments within the last 6 months.
+  expected_output: >
+    A list with 10 bullet points of the most relevant information about {topic}
+  agent: researcher
+
+write_blog_post_task:
+  description: >
+    Based on the research provided, write a compelling and informative blog post should be attractive and engaging to readers.
+    about {topic} in plain Markdown format. The blog post MUST start with the following
+    frontmatter (using single quotes for string values) and MUST NOT be enclosed
+    in any code blocks (do not use ```).
+
+    ---
+    title: '(A catchy title based on the research)'
+    status: 'published'
+    author:
+      name: '{author_name}'
+      picture: '{author_picture_url}'
+    slug: '(A URL-friendly version of the title)'
+    description: '(A brief summary of the blog post)'
+    coverImage: '{cover_image_url}'
+    category: '(A relevant category for the topic)'
+    publishedAt: '{current_date_iso}'
+    ---
+
+    The main content of the blog post should follow immediately after the closing '---' of the frontmatter, without any leading or trailing '```' or any other extra formatting that would treat it as a code block. The output should be directly usable as a .md file.
+
+    Use the information provided in the research output to fill in the
+    title, slug, description, category, and other relevant fields.
+    Ensure the 'publishedAt' field uses the current date and time in ISO format (YYYY-MM-DDTHH:MM:SS.msZ).
+    Strictly do not use any code blocks or delimiters in the output.
+  expected_output: >
+    A complete blog post in plain Markdown format, beginning with the specified frontmatter and followed directly by the blog content.
+    Formatted as markdown without '```'
+  agent: writer
+
+git_push_task:
+  description: Move the generated report.md file to outstatic/content/blogs and push it to the abdullahhsajid/bmd-portfolio repository
+  expected_output: A confirmation message that the file has been pushed to the repository
+  agent: git_manager
